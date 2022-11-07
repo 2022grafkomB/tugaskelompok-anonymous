@@ -33,7 +33,7 @@ let scene;
 }
 
 { // Plane
-    let textureUrl = 'https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/weathered_brown_planks/weathered_brown_planks_diff_4k.jpg';
+    let textureUrl = 'floor-texture.jpg';
     let planeSize = 2000;
     let plane = makePlane(planeSize, textureUrl);
     plane.rotateX(- Math.PI / 2);
