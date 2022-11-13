@@ -2,6 +2,7 @@ import { PointerLockControls } from 'https://threejsfundamentals.org/threejs/res
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
 
 import { makePlane } from './object/plane.js';
+import { createFinishBox } from './object/finishBox.js';
 
 let moveForward = false;
 let moveBackward = false;
@@ -38,6 +39,14 @@ let scene;
     let plane = makePlane(planeSize, textureUrl);
     plane.rotateX(- Math.PI / 2);
     scene.add(plane);
+}
+
+{ // Finish Box
+let finish = [];
+let f1 = createFinishBox(20, 0xff1234, 2000, 2000, scene, finish);
+let f2 = createFinishBox(20, 0xff1234, 2000, -2000, scene, finish);
+let f3 = createFinishBox(20, 0xff1234, -2000, 2000, scene, finish);
+let f4 = createFinishBox(20, 0xff1234, -2000, -2000, scene, finish);
 }
 
 let controls;
