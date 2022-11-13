@@ -1,4 +1,3 @@
-import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
 
 export function createFinishBox(boxSize, boxColor, locX, locZ, scene, finish){
     const geometryWall = new THREE.BoxGeometry(boxSize, boxSize, boxSize);

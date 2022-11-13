@@ -1,9 +1,7 @@
     import { PointerLockControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/examples/jsm/controls/PointerLockControls.js';
     import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
 
-    import { makePlane } from './object/plane.js';
-    import { makeBox } from './object/box.js';
-    import { createFinishBox } from './object/finishBox.js';
+import { makePlane } from './object/plane.js';
 
     let moveForward = false;
     let moveBackward = false;
@@ -34,40 +32,19 @@
         scene.add(light);
     }
 
-    { // Plane
-        let textureUrl = 'floor-texture.jpg';
-        let planeSize = 2000;
-        let plane = makePlane(planeSize, textureUrl);
-        plane.rotateX(- Math.PI / 2);
-        scene.add(plane);
-    }
+{ // Plane
+    let textureUrl = 'https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/weathered_brown_planks/weathered_brown_planks_diff_4k.jpg';
+    let planeSize = 2000;
+    let plane = makePlane(planeSize, textureUrl);
+    plane.rotateX(- Math.PI / 2);
+    scene.add(plane);
+}
 
-    { // Box
-        let boxTextureUrl = 'box-texture.jpg';
-        let boxSize = new THREE.BoxGeometry(5,5,5);
-        let arrPos = [-20, -10, 0, 10, 15];
-        for(var i=0; i<4; i++){
-            let box = makeBox(boxSize, boxTextureUrl);
-            box.position.x = arrPos[i];
-            scene.add(box);
-        }
-        
-
-    }
-
-    { // Finish Box
-        let finish = [];
-        let f1 = createFinishBox(20, 0xff1234, 2000, 2000, scene, finish);
-        let f2 = createFinishBox(20, 0xff1234, 2000, -2000, scene, finish);
-        let f3 = createFinishBox(20, 0xff1234, -2000, 2000, scene, finish);
-        let f4 = createFinishBox(20, 0xff1234, -2000, -2000, scene, finish);
-    }
-
-    let controls;
-    const blocker = document.getElementById('blocker');
-    const instructions = document.getElementById('instructions');
-    { // Pointer Lock Control
-        controls = new PointerLockControls(camera, document.body)
+let controls;
+const blocker = document.getElementById('blocker');
+const instructions = document.getElementById('instructions');
+{ // Pointer Lock Control
+    controls = new PointerLockControls(camera, document.body)
 
         instructions.addEventListener('click', function () {
             controls.lock();
