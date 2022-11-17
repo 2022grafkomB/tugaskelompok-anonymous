@@ -36,7 +36,7 @@
 
     { // Plane
         let textureUrl = 'floor-texture.jpg';
-        let planeSize = 2000;
+        let planeSize = 100;
         let plane = makePlane(planeSize, textureUrl);
         plane.rotateX(- Math.PI / 2);
         scene.add(plane);
