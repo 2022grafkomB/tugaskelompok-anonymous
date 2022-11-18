@@ -7,7 +7,7 @@ export function makePlane(planeSize, textureUrl) {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.magFilter = THREE.NearestFilter;
-    const repeats = planeSize / 2;
+    const repeats = planeSize / 4;
     texture.repeat.set(repeats, repeats);
 
     let material = new THREE.MeshPhongMaterial({

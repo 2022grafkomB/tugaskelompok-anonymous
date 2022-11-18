@@ -34,9 +34,10 @@
         scene.add(light);
     }
 
+
+    let planeSize = 100;
     { // Plane
-        let textureUrl = 'floor-texture.jpg';
-        let planeSize = 100;
+        let textureUrl = 'plane-texture.jpg';
         let plane = makePlane(planeSize, textureUrl);
         plane.rotateX(- Math.PI / 2);
         scene.add(plane);
@@ -44,10 +45,12 @@
 
     { // Finish Box
         let finish = [];
-        let f1 = createFinishBox(20, 0xff1234, 2000, 2000, scene, finish);
-        let f2 = createFinishBox(20, 0xff1234, 2000, -2000, scene, finish);
-        let f3 = createFinishBox(20, 0xff1234, -2000, 2000, scene, finish);
-        let f4 = createFinishBox(20, 0xff1234, -2000, -2000, scene, finish);
+        var wallSize = 100
+        var wallTxtr = 'wall-texture.jpg'
+        let f1 = createFinishBox(wallSize, wallTxtr, wallSize, 0, scene, finish);
+        let f2 = createFinishBox(wallSize, wallTxtr, 0, -wallSize, scene, finish);
+        let f3 = createFinishBox(wallSize, wallTxtr, -wallSize, 0, scene, finish);
+        let f4 = createFinishBox(wallSize, wallTxtr, 0, wallSize, scene, finish);
     }
 
     { // Boxes
@@ -174,13 +177,13 @@ const instructions = document.getElementById('instructions');
 
     function animate() {
 
-        console.log(camera.position.y);
+
         requestAnimationFrame(animate);
 
         const time = performance.now();
 
         if (controls.isLocked === true) {
-
+            console.log(camera.position);
             raycaster.ray.origin.copy(controls.getObject().position);
             raycaster.ray.origin.y -= 10;
 
@@ -201,6 +204,8 @@ const instructions = document.getElementById('instructions');
 
             if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
             if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
+            
+            
 
             // if (onObject === true) {
 
@@ -208,8 +213,10 @@ const instructions = document.getElementById('instructions');
             //     canJump = true;
 
             // }
-
-            controls.moveRight(- velocity.x * delta);
+            if(controls.position.x > -(planeSize/2) && controls.position.x < planeSize/2){
+                controls.moveRight(- velocity.x * delta);
+            }
+            
             controls.moveForward(- velocity.z * delta);
 
             controls.getObject().position.y += (velocity.y * delta); // new behavior
