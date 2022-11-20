@@ -18,7 +18,7 @@
     let camera;
     { // Camera
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-        camera.position.y = 2;
+        camera.position.y = 4;
     }
 
     let scene;
@@ -137,7 +137,7 @@ const instructions = document.getElementById('instructions');
                 break;
 
             case 'Space':
-                if (canJump === true) velocity.y += 250;
+                if (canJump === true) velocity.y += 100;
                 canJump = false;
                 break;
         }
@@ -183,7 +183,7 @@ const instructions = document.getElementById('instructions');
         const time = performance.now();
 
         if (controls.isLocked === true) {
-            console.log(camera.position);
+            
             raycaster.ray.origin.copy(controls.getObject().position);
             raycaster.ray.origin.y -= 10;
 
@@ -196,7 +196,7 @@ const instructions = document.getElementById('instructions');
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
 
-            velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+            velocity.y -= 9.8 * 50.0 * delta; // 100.0 = mass
 
             direction.z = Number(moveForward) - Number(moveBackward);
             direction.x = Number(moveRight) - Number(moveLeft);
@@ -213,18 +213,23 @@ const instructions = document.getElementById('instructions');
             //     canJump = true;
 
             // }
-            if(controls.position.x > -(planeSize/2) && controls.position.x < planeSize/2){
-                controls.moveRight(- velocity.x * delta);
-            }
             
+            controls.moveRight(- velocity.x * delta);
             controls.moveForward(- velocity.z * delta);
+
+            // controls to stay in the environment
+            if(controls.getObject().position.x < -48) controls.getObject().position.x = -48;
+            if(controls.getObject().position.x > 48) controls.getObject().position.x = 48;
+            if(controls.getObject().position.z < -48) controls.getObject().position.z = -48;
+            if(controls.getObject().position.z > 48) controls.getObject().position.z = 48;
+            console.log('objcet: ', controls.getObject().position);
 
             controls.getObject().position.y += (velocity.y * delta); // new behavior
 
-            if (controls.getObject().position.y < 10) {
+            if (controls.getObject().position.y < 4) {
 
                 velocity.y = 0;
-                controls.getObject().position.y = 10;
+                controls.getObject().position.y = 4;
 
                 canJump = true;
 
