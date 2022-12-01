@@ -19,6 +19,7 @@
     { // Camera
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
         camera.position.y = 4;
+        camera.position.x = 40;
     }
 
     let scene;
@@ -53,13 +54,16 @@
         let f4 = createFinishBox(wallSize, wallTxtr, 0, wallSize, scene, finish);
     }
 
+    let boxes = [];
+    const boxSize = 10
     { // Boxes
         let boxTexture = 'box-texture.jpg';
         let arrPos = [-40, -20, 0 , 20, 40];
-        for(var i=0; i<4; i++){
-            let box = makeBox(new THREE.BoxGeometry(10, 10, 10), boxTexture);
-            box.position.x = arrPos[i];
+        for(var i=0; i<1; i++){
+            let box = makeBox(new THREE.BoxGeometry(boxSize, boxSize, boxSize), boxTexture);
+            box.position.x = 20;
             box.position.y = 5;
+            boxes.push(box)
             scene.add(box)
         }
     }
@@ -174,9 +178,45 @@ const instructions = document.getElementById('instructions');
         raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
     }
 
+    // function to stop going thru the boxes
+    function boxIntersect(box, controls){
+        var boxOffset = boxSize/2 + 2;
+        var margin = 0
+        var maxX = box.position.x < 0 ? box.position.x - boxOffset : box.position.x + boxOffset;
+        var minX = box.position.x < 0 ? box.position.x + boxOffset : box.position.x - boxOffset;
+        var maxZ = box.position.z < 0 ? box.position.z - boxOffset : box.position.z + boxOffset;
+        var minZ = box.position.z < 0 ? box.position.z + boxOffset : box.position.z - boxOffset;
 
+        if(controls.getObject().position.x <= maxX 
+        && controls.getObject().position.x >= minX
+        && controls.getObject().position.z <= maxZ
+        && controls.getObject().position.z >= minZ){
+            console.log('control',controls.getObject().position);
+            console.log('box',box.position);
+            console.log('maxX', maxX);
+            console.log('minX', minX);
+            console.log('maxZ', maxZ);
+            console.log('minZ', minZ);
+            var resX = 9999;
+            var resZ = 9999;
+            if(controls.getObject().position.x <= maxX && controls.getObject().position.x >= minX){
+                if(Math.abs(controls.getObject().position.x - maxX) < Math.abs(controls.getObject().position.x - minX))
+                    resX = maxX < 0 ? maxX - margin : maxX + margin;
+                else
+                    resX = minX < 0 ? minX + margin : minX - margin;
+            }
+            if(controls.getObject().position.z <= maxZ && controls.getObject().position.z >= minZ){
+                if(Math.abs(controls.getObject().position.z - maxZ) < Math.abs(controls.getObject().position.z - minZ))
+                    resZ = maxZ < 0 ? maxZ - margin : maxZ + margin;
+                else
+                    resZ = minZ < 0 ? minZ + margin : minZ - margin;
+            }
+            if(resX > resZ) controls.getObject().position.x = resX
+            else controls.getObject().position.z = resZ
+        }
+          
+    }
     function animate() {
-
 
         requestAnimationFrame(animate);
 
@@ -187,12 +227,15 @@ const instructions = document.getElementById('instructions');
             raycaster.ray.origin.copy(controls.getObject().position);
             raycaster.ray.origin.y -= 10;
 
-            // const intersections = raycaster.intersectObjects(objects, false);
+            // const intersections = raycaster.intersectObjects(boxes, false);
 
             // const onObject = intersections.length > 0;
-
+            
+            for( var i=0; i<boxes.length; i++){
+                boxIntersect(boxes[i], controls);
+            }
             const delta = (time - prevTime) / 1000;
-
+            
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
 
@@ -222,7 +265,6 @@ const instructions = document.getElementById('instructions');
             if(controls.getObject().position.x > 48) controls.getObject().position.x = 48;
             if(controls.getObject().position.z < -48) controls.getObject().position.z = -48;
             if(controls.getObject().position.z > 48) controls.getObject().position.z = 48;
-            console.log('objcet: ', controls.getObject().position);
 
             controls.getObject().position.y += (velocity.y * delta); // new behavior
 
