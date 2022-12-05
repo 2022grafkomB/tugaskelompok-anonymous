@@ -13,6 +13,12 @@ let moveBackward = false;
 let moveLeft = false;
 let moveRight = false;
 let canJump = false;
+let tempX = [];
+let tempZ = [];
+let horPos = 0;
+let verPos = 0;
+let posIndex = 0;
+
 const box = [];
 
 let prevTime = performance.now();
@@ -180,73 +186,6 @@ let raycaster;
     raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
 }
 
-function move(obj, opt) {
-    var mover;
-    switch (opt) {
-        case "↑":
-            if (mover) {
-                clearInterval(mover);
-            }
-            var count = 0;
-            mover = setInterval(function() {
-                if (count == 50) {
-                    clearInterval(mover);
-                } else {
-                    obj.position.z -= .2;
-                    count++;
-                }
-            }, 5);
-            break;
-        case "↓":
-            if (mover) {
-                clearInterval(mover);
-            }
-            var count = 0;
-            mover = setInterval(function() {
-                if (count == 50) {
-                    clearInterval(mover);
-                } else {
-                    obj.position.z += .2;
-                    count++;
-                }
-            }, 5);
-            break;
-        case "←":
-            if (mover) {
-                clearInterval(mover);
-            }
-            var count = 0;
-            mover = setInterval(function() {
-                if (count == 50) {
-                    clearInterval(mover);
-                } else {
-                    obj.position.x -= .2;
-                    count++;
-                }
-            }, 5);
-            break;
-        case "→":
-            if (mover) {
-                clearInterval(mover);
-            }
-            var count = 0;
-            mover = setInterval(function() {
-                if (count == 50) {
-                    clearInterval(mover);
-                } else {
-                    obj.position.x += .2;
-                    count++;
-                }
-            }, 5);
-            break;
-        default:
-            return;
-    }
-    renderer.render(scene, camera);
-}
-
-
-
 function animate() {
 
 
@@ -262,21 +201,20 @@ function animate() {
 
         const delta = (time - prevTime) / 1000;
 
-        velocity.x -= velocity.x * 20.0 * delta;
-        velocity.z -= velocity.z * 20.0 * delta;
+        velocity.x -= velocity.x * 40.0 * delta;
+        velocity.z -= velocity.z * 40.0 * delta;
 
         velocity.y -= 9.8 * 50.0 * delta; // 100.0 = mass
 
         direction.z = Number(moveForward) - Number(moveBackward);
         direction.x = Number(moveRight) - Number(moveLeft);
+        console.log(direction.z)
         direction.normalize(); // this ensures consistent movements in all directions
-
         if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
         if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
         
         controls.moveRight(- velocity.x * delta);
         controls.moveForward(- velocity.z * delta);
-        // console.log(- velocity.x * delta)
 
         // controls to stay in the environment
         if(controls.getObject().position.x < -48) controls.getObject().position.x = -48;
@@ -293,17 +231,30 @@ function animate() {
 
             canJump = true;
         }
+        
 
-        let notMove = false;
-        let temp = box[0].position.x - box[1].position.x;
-        if(temp < 0) temp *= -1;
-        if(temp == 10) notMove = true;
+        tempX = [box[1].position.x , box[0].position.x];
+        tempZ = [box[1].position.z , box[0].position.z];
+
+        verPos = 0;
+        horPos = 0;
+        posIndex = 0;
+        if(tempX[1] > tempX[0]) horPos = 1;
+        if(tempZ[1] > tempZ[0]) verPos = 1;
 
         box.forEach(function(e){
+            //Horizontal
             if(controls.getObject().position.z < e.position.z+5 && controls.getObject().position.z > e.position.z-5 ){
                 //Barat
-                if(controls.getObject().position.x > e.position.x && controls.getObject().position.x < e.position.x + 6.85){
-                    if(notMove == false) e.position.x -= .34;
+                if(controls.getObject().position.x > e.position.x && controls.getObject().position.x < e.position.x + 7){
+                    if(horPos == posIndex) e.position.x = controls.getObject().position.x - 7;
+                    else {
+                        if(tempZ[posIndex] - e.position.z > 10 || tempZ[posIndex] - e.position.z < -10) e.position.x = controls.getObject().position.x - 7;
+                        else{
+                            if(tempX[posIndex] - e.position.x < -10) e.position.x = controls.getObject().position.x - 7;
+                            else controls.getObject().position.x = e.position.x + 7; 
+                        }
+                    }
                     if(e.position.x < -45) {
                         e.position.x = -45;
                         controls.getObject().position.x = e.position.x+7;
@@ -311,17 +262,35 @@ function animate() {
                 }
 
                 //Timur
-                else if (controls.getObject().position.x < e.position.x && controls.getObject().position.x > e.position.x - 6.85){
-                    if(notMove == false) e.position.x += .34;
+                else if (controls.getObject().position.x < e.position.x && controls.getObject().position.x > e.position.x - 7){
+                    if(horPos != posIndex) e.position.x = controls.getObject().position.x + 7;
+                    else {
+                        if(tempZ[posIndex] - e.position.z > 10 || tempZ[posIndex] - e.position.z < -10) e.position.x = controls.getObject().position.x = 7;
+                        else{
+                            if(tempX[posIndex] - e.position.x > 10) e.position.x = controls.getObject().position.x + 7;
+                            else controls.getObject().position.x = e.position.x-7; 
+                        }
+                    }
                     if(e.position.x > 45) {
                         e.position.x = 45;
                         controls.getObject().position.x = e.position.x-7;
                     }
                 }
-            } else if(controls.getObject().position.x < e.position.x+5 && controls.getObject().position.x > e.position.x-5 ){
+            } 
+            
+            
+            //Vertikal
+            else if(controls.getObject().position.x < e.position.x + 5 && controls.getObject().position.x > e.position.x-5 ){
                 //Utara
-                if(controls.getObject().position.z > e.position.z && controls.getObject().position.z < e.position.z + 6.85){
-                    if(notMove == false) e.position.z -= .34;
+                if(controls.getObject().position.z > e.position.z && controls.getObject().position.z < e.position.z - 7){
+                    if(verPos == posIndex) e.position.z = controls.getObject().position.z - 7;
+                    else {
+                        if(tempX[posIndex] - e.position.x > 10 || tempX[posIndex] - e.position.x < -10) e.position.z = controls.getObject().position.z - 7;
+                        else{
+                            if(tempZ[posIndex] - e.position.z < -10) e.position.z = controls.getObject().position.z - 7;
+                            else controls.getObject().position.z = e.position.z+7; 
+                        }
+                    }
                     if(e.position.z < -45) {
                         e.position.z = -45;
                         controls.getObject().position.z = e.position.z+7;
@@ -329,14 +298,22 @@ function animate() {
                 }
 
                 //Selatan
-                else if (controls.getObject().position.z < e.position.z && controls.getObject().position.z > e.position.z - 6.85){
-                    if(notMove == false) e.position.z += .34;
+                else if (controls.getObject().position.z < e.position.z && controls.getObject().position.z > e.position.z - 7){
+                    if(verPos != posIndex) e.position.z = controls.getObject().position.z + 7;
+                    else {
+                        if(tempX[posIndex] - e.position.x > 10 || tempX[posIndex] - e.position.x < -10) e.position.z = controls.getObject().position.z + 7;
+                        else{
+                            if(tempZ[posIndex] - e.position.z > 10) e.position.z = controls.getObject().position.z + 7;
+                            else controls.getObject().position.z = e.position.z-7; 
+                        }
+                    }
                     if(e.position.z > 45) {
                         e.position.z = 45;
                         controls.getObject().position.z = e.position.z-7;
                     }
                 }
             }
+            posIndex++;
         });
         // console.log(controls.getObject().position.z)
 
