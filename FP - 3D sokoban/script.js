@@ -49,9 +49,13 @@ let scene;
 let planeSize = 100;
 { // Plane
     let textureUrl = 'plane-texture.jpg';
-    let plane = makePlane(planeSize, textureUrl);
+    let plane = makePlane(planeSize, textureUrl, true);
+    let planeTop = makePlane(planeSize, 'wall-texture.jpg', false);
+    planeTop.position.y = 100;
+    planeTop.rotateX(- Math.PI / 2);
     plane.rotateX(- Math.PI / 2);
     scene.add(plane);
+    scene.add(planeTop);
 }
 
 { // Wall
