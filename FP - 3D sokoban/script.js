@@ -360,7 +360,11 @@ function animate() {
             if(controls.getObject().position.z < e.position.z+5 && controls.getObject().position.z > e.position.z-5 ){
                 //Dorong ke Barat
                 if(controls.getObject().position.x > e.position.x + 5 && controls.getObject().position.x < e.position.x + 7){
-                    if(horPos == posIndex) e.position.x = controls.getObject().position.x - 7;
+                    pushAudioOn();
+                    console.log('barat');
+                    if(horPos == posIndex) {
+                        e.position.x = controls.getObject().position.x - 7;
+                    }
                     else {
                         if(tempZ[posIndex] - e.position.z >= 10 || tempZ[posIndex] - e.position.z <= -10) e.position.x = controls.getObject().position.x - 7;
                         else{
@@ -376,7 +380,11 @@ function animate() {
 
                 //Dorong ke Timur
                 else if (controls.getObject().position.x < e.position.x - 5 && controls.getObject().position.x > e.position.x - 7){
-                    if(horPos != posIndex) e.position.x = controls.getObject().position.x + 7;
+                    pushAudioOn();
+                    console.log('timur');
+                    if(horPos != posIndex){
+                        e.position.x = controls.getObject().position.x + 7;
+                    }
                     else {
                         if(tempZ[posIndex] - e.position.z >= 10 || tempZ[posIndex] - e.position.z <= -10) e.position.x = controls.getObject().position.x + 7;
                         else{
@@ -396,7 +404,12 @@ function animate() {
             else if(controls.getObject().position.x < e.position.x + 5 && controls.getObject().position.x > e.position.x-5 ){
                 //Dorong ke Utara
                 if(controls.getObject().position.z < e.position.z + 7 && controls.getObject().position.z > e.position.z + 5){
-                    if(verPos == posIndex) e.position.z = controls.getObject().position.z - 7;
+                    pushAudioOn();
+                    console.log('utara');
+                    if(verPos == posIndex){
+                        e.position.z = controls.getObject().position.z - 7;
+                        
+                    }
                     else {
                         if( ((tempX[posIndex] - e.position.x) >= 10) || ((tempX[posIndex] - e.position.x) <= -10 )) e.position.z = controls.getObject().position.z - 7;
                         else{
@@ -412,7 +425,11 @@ function animate() {
 
                 //Dorong ke Selatan
                 else if (controls.getObject().position.z > e.position.z - 7 && controls.getObject().position.z < e.position.z - 5){
-                    if(verPos != posIndex) e.position.z = controls.getObject().position.z + 7;
+                    pushAudioOn();
+                    console.log('selatan');
+                    if(verPos != posIndex){
+                        e.position.z = controls.getObject().position.z + 7;
+                    }
                     else {
                         if(tempX[posIndex] - e.position.x >= 10 || tempX[posIndex] - e.position.x <= -10) e.position.z = controls.getObject().position.z + 7;
                         else{
