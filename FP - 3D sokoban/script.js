@@ -15,6 +15,7 @@ let moveRight = false;
 let canJump = false;
 const box = [];
 let walkAudio = new Audio('./audio/walking-sound.mp3');
+let pushAudio = new Audio('./audio/push-sound.mp3');
 
 // points constants
 const pointsSpeed = 3;
@@ -272,6 +273,13 @@ function move(obj, opt) {
     }
     renderer.render(scene, camera);
 }
+function pushAudioOn(){
+    pushAudio.play()
+    console.log('played push');
+    // setTimeout(function(){
+    //     pushAudio.pause();
+    // }, 1000);
+}
 
 function animate() {
 
@@ -337,11 +345,16 @@ function animate() {
         if(temp < 0) temp *= -1;
         if(temp == 10) notMove = true;
 
+        // box movements
         box.forEach(function(e){
             if(controls.getObject().position.z < e.position.z+5 && controls.getObject().position.z > e.position.z-5 ){
+                
                 //Barat
                 if(controls.getObject().position.x > e.position.x && controls.getObject().position.x < e.position.x + 6.85){
-                    if(notMove == false) e.position.x -= .34;
+                    if(notMove == false){
+                        e.position.x -= .34;
+                        pushAudioOn();
+                    }
                     if(e.position.x < -45) {
                         e.position.x = -45;
                         controls.getObject().position.x = e.position.x+7;
@@ -350,16 +363,23 @@ function animate() {
 
                 //Timur
                 else if (controls.getObject().position.x < e.position.x && controls.getObject().position.x > e.position.x - 6.85){
-                    if(notMove == false) e.position.x += .34;
+                    if(notMove == false){
+                        e.position.x += .34;
+                        pushAudioOn();
+                    }
                     if(e.position.x > 45) {
                         e.position.x = 45;
                         controls.getObject().position.x = e.position.x-7;
                     }
                 }
             } else if(controls.getObject().position.x < e.position.x+5 && controls.getObject().position.x > e.position.x-5 ){
+                
                 //Utara
                 if(controls.getObject().position.z > e.position.z && controls.getObject().position.z < e.position.z + 6.85){
-                    if(notMove == false) e.position.z -= .34;
+                    if(notMove == false){
+                        e.position.z -= .34;
+                        pushAudioOn();
+                    }
                     if(e.position.z < -45) {
                         e.position.z = -45;
                         controls.getObject().position.z = e.position.z+7;
@@ -368,15 +388,18 @@ function animate() {
 
                 //Selatan
                 else if (controls.getObject().position.z < e.position.z && controls.getObject().position.z > e.position.z - 6.85){
-                    if(notMove == false) e.position.z += .34;
+                    if(notMove == false){
+                        e.position.z += .34;
+                        pushAudioOn();
+                    }
                     if(e.position.z > 45) {
                         e.position.z = 45;
                         controls.getObject().position.z = e.position.z-7;
                     }
                 }
             }
+
         });
-        // console.log(controls.getObject().position.z)
 
     }
 
