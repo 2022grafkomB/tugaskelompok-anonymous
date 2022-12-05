@@ -61,7 +61,7 @@
         let arrPos = [-40, -20, 0 , 20, 40];
         for(var i=0; i<1; i++){
             let box = makeBox(new THREE.BoxGeometry(boxSize, boxSize, boxSize), boxTexture);
-            box.position.x = 20;
+            box.position.x = 0  ;
             box.position.y = 5;
             boxes.push(box)
             scene.add(box)
@@ -180,8 +180,8 @@ const instructions = document.getElementById('instructions');
 
     // function to stop going thru the boxes
     function boxIntersect(box, controls){
-        var boxOffset = boxSize/2 + 2;
-        var margin = 0
+        var boxOffset = boxSize/2+2.5;
+        var margin = 1
         var maxX = box.position.x < 0 ? box.position.x - boxOffset : box.position.x + boxOffset;
         var minX = box.position.x < 0 ? box.position.x + boxOffset : box.position.x - boxOffset;
         var maxZ = box.position.z < 0 ? box.position.z - boxOffset : box.position.z + boxOffset;
@@ -191,28 +191,33 @@ const instructions = document.getElementById('instructions');
         && controls.getObject().position.x >= minX
         && controls.getObject().position.z <= maxZ
         && controls.getObject().position.z >= minZ){
-            console.log('control',controls.getObject().position);
-            console.log('box',box.position);
-            console.log('maxX', maxX);
-            console.log('minX', minX);
-            console.log('maxZ', maxZ);
-            console.log('minZ', minZ);
             var resX = 9999;
             var resZ = 9999;
+            console.log('Max X', maxX, 'Min X', minX);
+            console.log('Max Z', maxZ, 'Min Z', minZ);
+            console.log(controls.getObject().position);
             if(controls.getObject().position.x <= maxX && controls.getObject().position.x >= minX){
-                if(Math.abs(controls.getObject().position.x - maxX) < Math.abs(controls.getObject().position.x - minX))
-                    resX = maxX < 0 ? maxX - margin : maxX + margin;
-                else
-                    resX = minX < 0 ? minX + margin : minX - margin;
-            }
-            if(controls.getObject().position.z <= maxZ && controls.getObject().position.z >= minZ){
                 if(Math.abs(controls.getObject().position.z - maxZ) < Math.abs(controls.getObject().position.z - minZ))
                     resZ = maxZ < 0 ? maxZ - margin : maxZ + margin;
                 else
                     resZ = minZ < 0 ? minZ + margin : minZ - margin;
+                console.log('X on');
             }
-            if(resX > resZ) controls.getObject().position.x = resX
-            else controls.getObject().position.z = resZ
+            if(controls.getObject().position.z <= maxZ && controls.getObject().position.z >= minZ){
+                if(Math.abs(controls.getObject().position.x - maxX) < Math.abs(controls.getObject().position.x - minX))
+                    resX = maxX < 0 ? maxX - margin : maxX + margin;
+                else
+                    resX = minX < 0 ? minX + margin : minX - margin;
+                console.log('Z on');
+            }
+            if(resX < resZ){
+                controls.getObject().position.z = resZ
+                console.log('Z is set');
+            }
+            else {
+                controls.getObject().position.x = resX
+                console.log('X is set');
+            }
         }
           
     }
@@ -231,22 +236,31 @@ const instructions = document.getElementById('instructions');
 
             // const onObject = intersections.length > 0;
             
-            for( var i=0; i<boxes.length; i++){
-                boxIntersect(boxes[i], controls);
-            }
+            
             const delta = (time - prevTime) / 1000;
             
             velocity.x -= velocity.x * 10.0 * delta;
             velocity.z -= velocity.z * 10.0 * delta;
 
+            
             velocity.y -= 9.8 * 50.0 * delta; // 100.0 = mass
 
             direction.z = Number(moveForward) - Number(moveBackward);
             direction.x = Number(moveRight) - Number(moveLeft);
             direction.normalize(); // this ensures consistent movements in all directions
 
-            if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
-            if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
+
+            for( var i=0; i<boxes.length; i++){
+                if(boxIntersect(boxes[i], controls)){
+                    
+                }
+                else{
+                    if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
+                    if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
+                }
+            }
+
+            
             
             
 
