@@ -112,6 +112,7 @@ controls = new PointerLockControls(camera, document.body)
     controls.addEventListener('unlock', function () {
         blocker.style.display = 'block';
         instructions.style.display = '';
+        walkAudio.pause();
     });
 
     scene.add(controls.getObject());
@@ -147,6 +148,7 @@ const onKeyUp = function (event) {
 // On Key Down Event
 const onKeyDown = function (event) {
     walkAudio.play();
+    walkAudio.loop = true;
     switch (event.code) {
         case 'ArrowUp':
         case 'KeyW':
