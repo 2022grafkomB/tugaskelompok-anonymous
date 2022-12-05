@@ -13,6 +13,11 @@ let moveBackward = false;
 let moveLeft = false;
 let moveRight = false;
 let canJump = false;
+let tempX = [];
+let tempZ = [];
+let horPos = 0;
+let verPos = 0;
+let posIndex = 0;
 const box = [];
 let walkAudio = new Audio('./audio/walking-sound.mp3');
 
@@ -330,49 +335,87 @@ function animate() {
             canJump = true;
         }
 
-        let notMove = false;
-        let temp = box[0].position.x - box[1].position.x;
-        if(temp < 0) temp *= -1;
-        if(temp == 10) notMove = true;
+        tempX = [box[1].position.x , box[0].position.x];
+        tempZ = [box[1].position.z , box[0].position.z];
+
+        verPos = 0;
+        horPos = 0;
+        posIndex = 0;
+        if(tempX[1] > tempX[0]) horPos = 1;
+        if(tempZ[1] > tempZ[0]) verPos = 1;
 
         box.forEach(function(e){
+            //Horizontal
             if(controls.getObject().position.z < e.position.z+5 && controls.getObject().position.z > e.position.z-5 ){
-                //Barat
-                if(controls.getObject().position.x > e.position.x && controls.getObject().position.x < e.position.x + 6.85){
-                    if(notMove == false) e.position.x -= .34;
+                //Dorong ke Barat
+                if(controls.getObject().position.x > e.position.x + 5 && controls.getObject().position.x < e.position.x + 7){
+                    if(horPos == posIndex) e.position.x = controls.getObject().position.x - 7;
+                    else {
+                        if(tempZ[posIndex] - e.position.z >= 10 || tempZ[posIndex] - e.position.z <= -10) e.position.x = controls.getObject().position.x - 7;
+                        else{
+                            if(tempX[posIndex] - e.position.x < -10) e.position.x = controls.getObject().position.x - 7;
+                            else controls.getObject().position.x = e.position.x + 7; 
+                        }
+                    }
                     if(e.position.x < -45) {
                         e.position.x = -45;
                         controls.getObject().position.x = e.position.x+7;
                     }
                 }
 
-                //Timur
-                else if (controls.getObject().position.x < e.position.x && controls.getObject().position.x > e.position.x - 6.85){
-                    if(notMove == false) e.position.x += .34;
+                //Dorong ke Timur
+                else if (controls.getObject().position.x < e.position.x - 5 && controls.getObject().position.x > e.position.x - 7){
+                    if(horPos != posIndex) e.position.x = controls.getObject().position.x + 7;
+                    else {
+                        if(tempZ[posIndex] - e.position.z >= 10 || tempZ[posIndex] - e.position.z <= -10) e.position.x = controls.getObject().position.x + 7;
+                        else{
+                            if(tempX[posIndex] - e.position.x > 10) e.position.x = controls.getObject().position.x + 7;
+                            else controls.getObject().position.x = e.position.x-7; 
+                        }
+                    }
                     if(e.position.x > 45) {
                         e.position.x = 45;
                         controls.getObject().position.x = e.position.x-7;
                     }
                 }
-            } else if(controls.getObject().position.x < e.position.x+5 && controls.getObject().position.x > e.position.x-5 ){
-                //Utara
-                if(controls.getObject().position.z > e.position.z && controls.getObject().position.z < e.position.z + 6.85){
-                    if(notMove == false) e.position.z -= .34;
+            } 
+            
+            
+            //Vertikal
+            else if(controls.getObject().position.x < e.position.x + 5 && controls.getObject().position.x > e.position.x-5 ){
+                //Dorong ke Utara
+                if(controls.getObject().position.z < e.position.z + 7 && controls.getObject().position.z > e.position.z + 5){
+                    if(verPos == posIndex) e.position.z = controls.getObject().position.z - 7;
+                    else {
+                        if( ((tempX[posIndex] - e.position.x) >= 10) || ((tempX[posIndex] - e.position.x) <= -10 )) e.position.z = controls.getObject().position.z - 7;
+                        else{
+                            if(tempZ[posIndex] - e.position.z < -10) e.position.z = controls.getObject().position.z - 7;
+                            else controls.getObject().position.z = e.position.z+7; 
+                        }
+                    }
                     if(e.position.z < -45) {
                         e.position.z = -45;
                         controls.getObject().position.z = e.position.z+7;
                     }
                 }
 
-                //Selatan
-                else if (controls.getObject().position.z < e.position.z && controls.getObject().position.z > e.position.z - 6.85){
-                    if(notMove == false) e.position.z += .34;
+                //Dorong ke Selatan
+                else if (controls.getObject().position.z > e.position.z - 7 && controls.getObject().position.z < e.position.z - 5){
+                    if(verPos != posIndex) e.position.z = controls.getObject().position.z + 7;
+                    else {
+                        if(tempX[posIndex] - e.position.x >= 10 || tempX[posIndex] - e.position.x <= -10) e.position.z = controls.getObject().position.z + 7;
+                        else{
+                            if(tempZ[posIndex] - e.position.z > 10) e.position.z = controls.getObject().position.z + 7;
+                            else controls.getObject().position.z = e.position.z-7; 
+                        }
+                    }
                     if(e.position.z > 45) {
                         e.position.z = 45;
                         controls.getObject().position.z = e.position.z-7;
                     }
                 }
             }
+            posIndex++;
         });
         // console.log(controls.getObject().position.z)
 
