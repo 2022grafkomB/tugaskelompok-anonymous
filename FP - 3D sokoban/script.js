@@ -59,13 +59,12 @@ let planeSize = 100;
 
 { // Boxes
     let boxTexture = 'box-texture.jpg';
-    let arrPos = [-45, 40];
+    let arrPos = [-20, 20];
     let i = 0;
     arrPos.forEach(function(e){
         box[i] = makeBox(new THREE.BoxGeometry(10, 10, 10), boxTexture);
         box[i].position.x = e;
         box[i].position.y = 5;
-        box[i].position.z = 45;
         scene.add(box[i]);
         i++;
     });
@@ -295,39 +294,49 @@ function animate() {
             canJump = true;
         }
 
+        let notMove = false;
+        let temp = box[0].position.x - box[1].position.x;
+        if(temp < 0) temp *= -1;
+        if(temp == 10) notMove = true;
+
         box.forEach(function(e){
-            if(controls.getObject().position.z < e.position.z+4 && controls.getObject().position.z > e.position.z-4 ){
-                // console.log(controls.getObject().position.x)
-                // console.log(e.position.x)
-                // console.log("true")
+            if(controls.getObject().position.z < e.position.z+5 && controls.getObject().position.z > e.position.z-5 ){
+                //Barat
                 if(controls.getObject().position.x > e.position.x && controls.getObject().position.x < e.position.x + 6.85){
-                    e.position.x -= .34;
+                    if(notMove == false) e.position.x -= .34;
+                    if(e.position.x < -45) {
+                        e.position.x = -45;
+                        controls.getObject().position.x = e.position.x+7;
+                    }
                 }
+
+                //Timur
                 else if (controls.getObject().position.x < e.position.x && controls.getObject().position.x > e.position.x - 6.85){
-                    e.position.x += .34;
+                    if(notMove == false) e.position.x += .34;
+                    if(e.position.x > 45) {
+                        e.position.x = 45;
+                        controls.getObject().position.x = e.position.x-7;
+                    }
                 }
-            } else if(controls.getObject().position.x < e.position.x+4 && controls.getObject().position.x > e.position.x-4 ){
-                // console.log(controls.getObject().position.x)
-                // console.log(e.position.x)
-                // console.log("true")
+            } else if(controls.getObject().position.x < e.position.x+5 && controls.getObject().position.x > e.position.x-5 ){
+                //Utara
                 if(controls.getObject().position.z > e.position.z && controls.getObject().position.z < e.position.z + 6.85){
-                    e.position.z -= .34;
+                    if(notMove == false) e.position.z -= .34;
+                    if(e.position.z < -45) {
+                        e.position.z = -45;
+                        controls.getObject().position.z = e.position.z+7;
+                    }
                 }
+
+                //Selatan
                 else if (controls.getObject().position.z < e.position.z && controls.getObject().position.z > e.position.z - 6.85){
-                    e.position.z += .34;
+                    if(notMove == false) e.position.z += .34;
+                    if(e.position.z > 45) {
+                        e.position.z = 45;
+                        controls.getObject().position.z = e.position.z-7;
+                    }
                 }
             }
-
-            //mentok tembok
-            if(e.position.x < -45) {
-                e.position.x = -45;
-                controls.getObject().position.x = -38;
-            }
-            if(e.position.x > 45) e.position.x = 45;
-            if(e.position.z < -45) e.position.z = -45;
-            if(e.position.z > 45) e.position.z = 45;
-
-            // console.log(e.position.z)
         });
         // console.log(controls.getObject().position.z)
 
