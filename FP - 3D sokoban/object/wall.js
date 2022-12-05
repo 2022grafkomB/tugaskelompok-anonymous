@@ -1,5 +1,5 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js';
-export function createFinishBox(boxSize, textureUrl, locX, locZ, scene, finish){
+export function createWall(boxSize, textureUrl, locX, locZ, scene, finish){
     const loader = new THREE.TextureLoader();
     const texture = loader.load(textureUrl)
     
