@@ -45,10 +45,14 @@ let scene;
 }
 
 { // Light
-    const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75);
-    // light.position.y = 10;
-    light.position.set( 0.5, 100, 0.75 );
-    scene.add(light);
+    const light = new THREE.DirectionalLight('#FFF', .5)
+    light.position.set(-3,2,0)
+    light.castShadow = true
+    scene.add(light)
+
+    // ambient light
+    const ambientLight = new THREE.AmbientLight( '#FFF', 0.5); // soft white light
+    scene.add( ambientLight );
 }
 
 
