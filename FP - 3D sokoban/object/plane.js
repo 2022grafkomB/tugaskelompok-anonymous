@@ -8,7 +8,7 @@ export function makePlane(planeSize, textureUrl, repeat) {
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.magFilter = THREE.NearestFilter;
-        const repeats = planeSize / 4;
+        const repeats = planeSize / 32;
         texture.repeat.set(repeats, repeats);
     }
 
@@ -18,8 +18,6 @@ export function makePlane(planeSize, textureUrl, repeat) {
     });
 
     let geometry = new THREE.PlaneGeometry(planeSize, planeSize);
-
     let obj = new THREE.Mesh(geometry, material);
-    obj.receiveShadow = true;
     return obj;
 }

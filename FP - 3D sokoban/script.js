@@ -45,25 +45,29 @@ let scene;
 }
 
 { // Light
-    const light = new THREE.DirectionalLight('#FFF', .5)
-    light.position.set(-3,2,0)
-    light.castShadow = true
-    scene.add(light)
+    const light = new THREE.DirectionalLight('#FFF', .7);
+    light.position.set(-3,2,0);
+    light.castShadow = true;
+    scene.add(light);
 
+    //hemisphere light
+    const hemisphereLight = new THREE.HemisphereLight('#330066', '#296d98', 1);
+    scene.add(hemisphereLight);
     // ambient light
-    const ambientLight = new THREE.AmbientLight( '#FFF', 0.5); // soft white light
+    const ambientLight = new THREE.AmbientLight('#FFF' , .5); // soft white light
     scene.add( ambientLight );
 }
 
 
 let planeSize = 100;
 { // Plane
-    let textureUrl = 'plane-texture.jpg';
+    let textureUrl = 'floor-texture.jpg';
     let plane = makePlane(planeSize, textureUrl, true);
     let planeTop = makePlane(planeSize, 'wall-texture.jpg', false);
     planeTop.position.y = 100;
     planeTop.rotateX(- Math.PI / 2);
     plane.rotateX(- Math.PI / 2);
+    plane.receiveShadow = true;
     scene.add(plane);
     scene.add(planeTop);
 }
@@ -94,7 +98,7 @@ let planeSize = 100;
 { //Points
     let arrZPos = 10;
     let i = 0;
-    let pointTexture = 'point-texture.jpg';
+    let pointTexture = 'point1-texture.jpg';
     box.forEach(function(b){
         points[i] = makeBox(new THREE.IcosahedronGeometry(1.3,0), pointTexture);
         points[i].position.x = b.position.x;
@@ -197,6 +201,8 @@ let renderer;
 { // Renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 }

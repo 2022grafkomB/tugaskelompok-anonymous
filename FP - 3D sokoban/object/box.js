@@ -14,7 +14,6 @@ export function makeBox(boxSize, textureUrl) {
     }
     
     const box = new THREE.Mesh(boxGeometry, boxMat);
-    box.castShadow = true;
     box.receiveShadow = true;
     box.position.y = 3;
     return box;
