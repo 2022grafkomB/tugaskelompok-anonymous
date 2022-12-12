@@ -1,27 +1,129 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>FP Grafika Komputer</title>
-    <link type="text/css" rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div id="blocker">
-        <div id="instructions">
-            <p style="font-size:36px">
-                Click to play
-            </p>
-            <p>
-                Move: WASD<br />
-                Jump: SPACE<br />
-                Look: MOUSE
-            </p>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>
+      judul
+    </title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/button.css"/>
+    <link rel="stylesheet" href="css/sweetalert2.min.css"/>
+  </head>
+  <body>
+    <div id="white">
+      <div class="loader">
+        <div class="loader-inner square-spin">
+          <div>
+          </div>
         </div>
+        <div class="text">
+          loading......
+        </div>
+      </div>
     </div>
-</body>
+    <div id="cover">
+      <div id="instructions">
+        <p>
+            Use WASD to Move around!</br>
+            Help Timmy move all the box to its station!
+        </p>
+    </div>
+      <div id="hint">
+        <button id="hintclose" class="closebtn button button-pill">
+          Click to play
+        </button>
+      </div>
+    </div>
+    <!-- <div id="cover2">
+      <div id="hint2">
+        <p id="hinttext2">
+          hinttext2
+        </p>
+        <button id="hintclose1" class="closebtn button button-pill">
+          hitclose1
+        </button>
+      </div>
+    </div> -->
+    <button id="recover" class="button button-large button-plain button-border button-box">
+      <i class="fa fa-reply-all">
+      </i>
+    </button>
+    <canvas height="100%" width="100%" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 1;"  id="canvas">
+    </canvas>
+    <!-- <img id="wasd" src="img/wasd.png" title="wasd"/> -->
+    <button id="maid1" class="btn button button-large button-plain button-border button-box" >
+      peta 1
+    </button>
+    <button id="answer1" class="btn button button-large button-plain button-border button-box">
+      jawaban 1
+    </button>
+    <button id="maid2" class="btn button button-large button-plain button-border button-box">
+      peta 2
+    </button>
+    <button id="answer2" class="btn button button-large button-plain button-border button-box">
+      jawaban 2
+    </button>
+    <button id="maid3" class="btn button button-large button-plain button-border button-box">
+      peta 3
+    </button>
+    <button id="answer3" class="btn button button-large button-plain button-border button-box">
+      jawaban 3
+    </button>
+    <button id="stepnum" class="button button-glow button-border button-rounded button-primary">
+      step：
+      <span id="num">
+        0
+      </span>
+    </button>
+    <button id="back" class="button button-large button-plain button-border button-circle">
+      <i class="fa fa-reply">
+      </i>
+    </button>
 
+
+
+    <input id="mapfile" accept="text/plain" type="file"/>
+    <button id="map" class="button button-large button-plain button-border button-box">
+      map
+    </button>
+    <input id="answerfile" accept="text/plain" type="file"/>
+    <button id="answer" class="button button-large button-plain button-border button-box">
+      answer
+    </button>
+    <button id="refresh" class="button button-large button-plain button-border button-circle">
+      <i class="fa fa-refresh">
+      </i>
+    </button>
+   
+    <script src="js/promise.min.js"></script>
+    
+    <script src="js/three.min.js"></script>
+    
+    <script src="js/OrbitControls.js"></script>
+    
+    <script src="js/stats.min.js"></script>
+    
+    <script src="js/STLLoader.js"></script>
+   
+    <script src="js/sweetalert2.min.js"></script>
+    
+    <script src="js/globalvar.js"></script>
+    
+    <script src="js/Cube.js"></script>
+    
+    <script src="js/TRender.js"></script>
+    
+    <script src="js/animate.js"></script>
+    
+    <script src="js/operation.js"></script>
+    
+    <script src="js/UI.js"></script>
+
+    <!-- <script type="module">
+      import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+
+
+    </script> -->
+  </body>
 </html>
-
-<script src="script.js" type="module"></script>

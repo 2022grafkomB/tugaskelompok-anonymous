@@ -1,0 +1,274 @@
+/*清除白色外边距*/
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-image: url("../img/hacker.jpg");
+  background-size: cover;
+}
+
+#white {
+  position: absolute;
+  z-index: 10;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+/* #cover, #cover2 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(250, 250, 250, .2);
+  z-index: 3;
+} */
+
+#cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+#instructions {
+  width: 100%;
+  height: 100%;
+  color:rgb(255, 255, 255);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#hinttext, #hinttext2 {
+  color: white;
+  position: absolute;
+  font-size: 50px;
+  left: 40%;
+  top: 30%;
+}
+
+.closebtn {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+}
+
+#cover2 {
+  display: none;
+}
+
+#maid1, #maid2, #maid3, #answer1, #answer2, #answer3 {
+  width: 120px;
+  margin: 0 20px;
+}
+
+#answer2, #answer3 {
+  visibility: hidden;
+}
+
+#maid1 {
+  left: 10%;
+}
+
+#answer1 {
+  left: 20%;
+}
+
+#maid2 {
+  left: 30%;
+}
+
+#answer2 {
+  left: 40%;
+}
+
+#maid3 {
+  left: 50%;
+}
+
+#answer3 {
+  left: 60%;
+}
+
+#map, #answer, #back, #refresh, .btn {
+  display: inline-block;
+  position: absolute;
+  margin-left: 20px;
+}
+
+#map, #answer {
+  width: 200px;
+  top: 90%;
+}
+
+#back {
+  left: 25%;
+}
+
+#map {
+  left: 30%;
+}
+
+#answer {
+  left: 48%;
+}
+
+#refresh {
+  left: 66%;
+}
+
+#back, #refresh {
+  top: 89%;
+}
+
+#wasd {
+  z-index: 9;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+}
+
+#stepnum {
+  position: absolute;
+  right: 10px;
+  width: auto;
+  color: white;
+}
+
+
+
+#mapfile, #answerfile {
+  display: none;
+}
+
+
+
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: -webkit-radial-gradient(bottom left, circle, #f4f655, #b8f888, #42fcfb);
+  margin: 0 auto;
+  position: relative;
+}
+
+.pie_left, .pie_right {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.left, .right {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: #5bc6fc;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*transform:rotate(30deg);
+  */
+}
+
+.pie_right, .right {
+  clip: rect(0, auto, auto, 50px);
+}
+
+.pie_left, .left {
+  clip: rect(0, 50px, auto, 0);
+}
+
+.mask {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  left: 10px;
+  top: 10px;
+  background: #07a3fa;
+  position: absolute;
+  text-align: center;
+  line-height: 80px;
+  font-size: 16px;
+  color: #fff;
+}
+
+
+@-webkit-keyframes square-spin {
+  25% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);
+    transform: perspective(100px) rotateX(180deg) rotateY(0);
+  }
+  50% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+    transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);
+    transform: perspective(100px) rotateX(0) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);
+    transform: perspective(100px) rotateX(0) rotateY(0);
+  }
+}
+
+@keyframes square-spin {
+  25% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);
+    transform: perspective(100px) rotateX(180deg) rotateY(0);
+  }
+  50% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+    transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);
+    transform: perspective(100px) rotateX(0) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);
+    transform: perspective(100px) rotateX(0) rotateY(0);
+  }
+}
+
+.square-spin>div {
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  background: #000000;
+  border: 1px solid black;
+  -webkit-animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+  animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+}
+
+.loader>.text {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+}
+
+#recover {
+  position: absolute;
+  right: 5%;
+  top: 45%;
+  visibility: hidden;
+}
