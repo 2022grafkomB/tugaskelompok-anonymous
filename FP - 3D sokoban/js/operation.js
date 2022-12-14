@@ -215,7 +215,7 @@ function checkdesall() {
 function ghostmove(choice) {
   switch (choice) {
     case "↑":
-      ghost.cube.rotation.z = Math.PI;
+      ghost.cube.rotation.y = Math.PI;
       if (ghost.isavailable("w")) {
         step.push(choice); 
         move(ghost.cube, "↑"); //Gerakan karakter
@@ -245,7 +245,7 @@ function ghostmove(choice) {
       }
       break;
     case "↓":
-      ghost.cube.rotation.z = 0;
+      ghost.cube.rotation.y = 0;
       if (ghost.isavailable("s")) {
         step.push(choice); 
         move(ghost.cube, "↓"); 
@@ -275,7 +275,7 @@ function ghostmove(choice) {
       }
       break;
     case "←":
-      ghost.cube.rotation.z = -Math.PI / 2;
+      ghost.cube.rotation.y = -Math.PI / 2;
       if (ghost.isavailable("a")) {
         step.push(choice);
         move(ghost.cube, "←");
@@ -305,7 +305,7 @@ function ghostmove(choice) {
       }
       break;
     case "→":
-      ghost.cube.rotation.z = Math.PI / 2;
+      ghost.cube.rotation.y = Math.PI / 2;
       if (ghost.isavailable("d")) {
         step.push(choice); 
         move(ghost.cube, "→"); 
