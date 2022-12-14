@@ -8,9 +8,6 @@ function addKeyboardEvent() {
   document.onkeydown = function(event) {
     var choice = ghostdirection(event.key);
     if (choice == "↑" || choice == "↓" || choice == "←" || choice == "→") {
-    //   document.getElementById("answer1").style.visibility = "hidden";
-    //   document.getElementById("answer2").style.visibility = "hidden";
-    //   document.getElementById("answer3").style.visibility = "hidden";
       ghostmove(choice);
       document.getElementById("num").innerHTML = step.length;
     }
@@ -221,9 +218,6 @@ document.getElementById("map").onclick = function() {
 };
 document.getElementById("mapfile").onchange = function() {
   levelID=0;
-  // document.getElementById("answer1").style.visibility = "hidden";
-  // document.getElementById("answer2").style.visibility = "hidden";
-  // document.getElementById("answer3").style.visibility = "hidden";
   var file = this.files[0]; 
   var reader = new FileReader();
   reader.readAsText(file);
@@ -286,9 +280,6 @@ document.getElementById("answerfile").onchange = function() {
 document.getElementById("back").onclick = function() {
   addKeyboardEvent();
   clearInterval(draw);
-  // document.getElementById("answer1").style.visibility = "hidden";
-  // document.getElementById("answer2").style.visibility = "hidden";
-  // document.getElementById("answer3").style.visibility = "hidden";
   
   var laststep = step.pop();
   var lastflag = stepflag.pop();
@@ -401,62 +392,6 @@ document.getElementById("refresh").onclick = function() {
   document.getElementById("num").innerHTML = step.length; 
 };
 
-// document.getElementById("maid1").onclick = function() {
-//   clearInterval(draw); 
-//   levelID = 1;
-//   document.getElementById("answer1").style.visibility = "visible";
-//   document.getElementById("answer2").style.visibility = "hidden";
-//   document.getElementById("answer3").style.visibility = "hidden";
-//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//     0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 
-//     0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 
-//     0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 
-//     0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 
-//     0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 
-//     0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 
-//     0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 
-//     0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 
-//     0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-//   initmap(arr);
-// };
-// document.getElementById("maid2").onclick = function() {
-//   clearInterval(draw); 
-//   levelID = 2;
-//   document.getElementById("answer1").style.visibility = "hidden";
-//   document.getElementById("answer2").style.visibility = "visible";
-//   document.getElementById("answer3").style.visibility = "hidden";
-//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//     0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 
-//     0, 1, 3, 0, 0, 1, 0, 0, 0, 0, 
-//     0, 1, 0, 2, 2, 1, 0, 1, 1, 1, 
-//     0, 1, 0, 2, 0, 1, 0, 1, 4, 1, 
-//     0, 1, 1, 1, 0, 1, 1, 1, 4, 1, 
-//     0, 0, 1, 1, 0, 0, 0, 0, 4, 1, 
-//     0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 
-//     0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 
-//     0, 0, 1, 1, 1, 1, 1, 0, 0, 0];
-//   initmap(arr);
-// };
-// document.getElementById("maid3").onclick = function() {
-//   clearInterval(draw);
-//   levelID = 3;
-//   document.getElementById("answer1").style.visibility = "hidden";
-//   document.getElementById("answer2").style.visibility = "hidden";
-//   document.getElementById("answer3").style.visibility = "visible";
-//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//             0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
-//             0, 0, 1, 4, 4, 1, 1, 1, 1, 0, 
-//             0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 
-//             0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 
-//             0, 1, 0, 2, 0, 0, 4, 1, 1, 0, 
-//             0, 1, 0, 0, 2, 2, 0, 0, 1, 0, 
-//             0, 1, 1, 0, 3, 0, 0, 1, 1, 0, 
-//             0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 
-//             0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-//   initmap(arr);
-// };
-
-
 function openLevel(level) {
   console.log("openlevelentered");
   clearInterval(draw);
@@ -464,9 +399,6 @@ function openLevel(level) {
 
   levelStart = true;
   document.getElementById("answerdemo").style.visibility = "visible";
-  // document.getElementById("answer1").style.visibility = "hidden";
-  // document.getElementById("answer2").style.visibility = "hidden";
-  // document.getElementById("answer3").style.visibility = "visible";
 
   var arr = levels[level-1].map;
   console.log(arr);
