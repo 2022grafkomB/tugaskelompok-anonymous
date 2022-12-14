@@ -1,149 +1,3 @@
-// import levels from "/Levels.js"
-const levels = [
-  {
-      levelID: 1,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 
-        0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 
-        0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 
-        0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 
-        0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 
-        0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 
-        0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 
-        0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      answer: "↓,↑,←,←,→,↑,↑,↓,→,→",
-  },
-  {
-      levelID: 2,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-          0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 
-          0, 1, 3, 0, 0, 1, 0, 0, 0, 0, 
-          0, 1, 0, 2, 2, 1, 0, 1, 1, 1, 
-          0, 1, 0, 2, 0, 1, 0, 1, 4, 1, 
-          0, 1, 1, 1, 0, 1, 1, 1, 4, 1, 
-          0, 0, 1, 1, 0, 0, 0, 0, 4, 1, 
-          0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 
-          0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 
-          0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
-      answer: "→,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,↑,↓,←,←,←,←,↑,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,←,←,←,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→",
-  },
-  {
-      levelID: 3,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-          0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
-          0, 0, 1, 4, 4, 1, 1, 1, 1, 0, 
-          0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 
-          0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 
-          0, 1, 0, 2, 0, 0, 4, 1, 1, 0, 
-          0, 1, 0, 0, 2, 2, 0, 0, 1, 0, 
-          0, 1, 1, 0, 3, 0, 0, 1, 1, 0, 
-          0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      answer: "↑,↑,↓,↓,→,→,↑,←,↑,←,↑,↑,→,→,↓,↑,←,←,←,↓,←,↓,↓,→,↑,↑,↑,↓,↓,↓,↓,→,↑,↑,↑,←,↑,→"
-  },
-  {
-      levelID: 4,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
-          0, 0, 1, 3, 0, 1, 1, 1, 0, 0, 
-          0, 0, 1, 0, 2, 0, 0, 1, 0, 0, 
-          0, 1, 1, 1, 0, 1, 0, 1, 1, 0,
-          0, 1, 4, 1, 0, 1, 0, 0, 1, 0, 
-          0, 1, 4, 2, 0, 0, 1, 0, 1, 0, 
-          0, 1, 4, 0, 0, 0, 2, 0, 1, 0, 
-          0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "→,↓,→,→,↓,↓,→,↓,↓,←,←,↑,←,←,↓,←,↑,→,→,→,↓,→,→,↑,↑,←,↑,↑,←,←,↓,↓,↑,↑,→,→,↓,↓,→,↓,↓,←,←,↑,←,←,→,→,↓,←,←",
-  },
-  {
-      levelID: 5,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 1, 1, 1, 1, 1, 1, 0,
-          0, 0, 0, 1, 0, 0, 0, 0, 1, 0,
-          0, 1, 1, 1, 2, 2, 2, 0, 1, 0,
-          0, 1, 3, 0, 2, 4, 4, 0, 1, 0,
-          0, 1, 0, 2, 4, 4, 4, 1, 1, 0,
-          0, 1, 1, 1, 1, 0, 0, 1, 0, 0,
-          0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "↓,↑,↓,→,→,→,↑,→,→,↑,↑,←,←,↓,↓,←,↓,←,←,↑,→,→,→,↑,↑,←,↓,↓,↑,↑,→,→,→,↓,←,↑,←,↓"
-  },
-  {
-      levelID: 6,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
-          0, 0, 0, 1, 4, 4, 1, 0, 0, 0,
-          0, 0, 1, 1, 0, 4, 1, 1, 0, 0,
-          0, 0, 1, 0, 0, 2, 4, 1, 0, 0,
-          0, 1, 1, 0, 2, 0, 0, 1, 1, 0,
-          0, 1, 0, 0, 1, 2, 2, 0, 1, 0,
-          0, 1, 0, 0, 3, 0, 0, 0, 1, 0,
-          0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      answer: "←,↑,↑,→,→,↑,↑,↓,←,←,↓,↓,↓,→,→,↑,↓,→,→,↑,←,↓,←,←,←,↑,↑,↑,→,→,→,↓,←,↑,←,←,↓,↓,↓,→,→,↑,↑,→,↑,←,↓,↓,↓,←,←,↑,↑,→,↑,↑,↓,↓,←,↓,↓,→,→,↑,↑,↑,↓,↓,↓,→,↑,↑",
-  },
-  {
-      levelID: 7,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-          1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-          1, 0, 2, 2, 2, 1, 1, 0, 0, 0,
-          1, 0, 0, 1, 4, 4, 1, 1, 1, 0,
-          1, 1, 0, 0, 4, 4, 2, 0, 1, 0,
-          0, 1, 3, 0, 0, 0, 0, 0, 1, 0,
-          0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "←,↑,↑,←,↑,↑,→,→,→,↓,↓,→,↓,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,→,↓,↓,←,←,←,↑,↑,←,↑,→,↓,↓,↓,→,→,↑,↓,←,←,↑,→,↓,→,→,→,→,↑,←,↓,←,↑,↓,←,←,↑,→,←,←,↑,↑,↑,→,→,↓,↓,↑,↑,←,←,↓,→,↑,→,↓",
-  },
-  {
-      levelID: 8,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-          0, 1, 4, 4, 2, 4, 4, 1, 0, 0,
-          0, 1, 4, 4, 1, 4, 4, 1, 0, 0,
-          0, 1, 0, 2, 2, 2, 0, 1, 0, 0,
-          0, 1, 0, 0, 2, 0, 0, 1, 0, 0,
-          0, 1, 0, 2, 2, 2, 0, 1, 0, 0,
-          0, 1, 0, 0, 1, 3, 0, 1, 0, 0,
-          0, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],            
-      answer: "→,↑,↑,←,↑,→,↓,↓,↓,←,↑,→,↑,↑,↑,↑,←,←,←,→,→,→,←,←,←,↓,←,↓,↓,→,↑,→,→,↑,↓,↓,→,↑,↑,↓,←,←,←,↑,↓,↓,←,↓,↓,→,↑,↑,→,↑,←,↓,←,↑,↓,→,→,↑,→,→,↓,←,→,↓,↓,←,↑,↑,↑,←,←,↓,→,→,↓,→,↑,↑,←,↓,↓,←,↑,←,←,↓,↓,→,↑,↑,↑"
-  },
-  {
-      levelID: 9,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-          0, 1, 0, 0, 0, 1, 1, 1, 1, 1,
-          0, 1, 0, 1, 0, 1, 0, 0, 0, 1,
-          0, 1, 0, 2, 0, 0, 0, 2, 0, 1,
-          0, 1, 4, 4, 1, 2, 1, 2, 1, 1,
-          0, 1, 4, 3, 2, 0, 0, 0, 1, 0,
-          0, 1, 4, 4, 0, 0, 1, 1, 1, 0,
-          0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "↓,→,→,↑,←,↓,←,←,↑,↑,→,↓,←,↓,→,↑,↑,←,↑,↑,↑,→,→,↓,↓,←,↓,←,↑,→,→,→,→,↑,→,→,↓,←,←,←,←,↑,↑,←,←,↓,↓,↓,→,↓,→,→,→,→,↑,↓,←,←,←,←,↑,←,↑,↑,↑,→,→,↓,↓,→,↓,↑,→,↑,→,→,↓,←,↓,↓,←,←,↑,↑,→,↑,→,↓,←,←,←,↑,↑,←,←,↓,↓,→,→,→,→,←,←,←,↓,↓,↓,←,↑,↑,↑,→,→,→,↓,↓,←,→,↑,↑,←,←,←,↓,↓,↓,→,↑,→,→,↓,←,→,↑,↑,↑,←,↑,↑,←,←,↓,↓,↓,↓,→,→,→,↑,↑,→,↑,→,→,↓,←,←,←,←,←,→,↑,↑,←,←,↓,↓,↓,↑,→,→,→,↓,↓,→,→,↑,↓,←,←,↑,↑,→,↑,→,→,↓,←,←,←,←,←,→,↑,↑,←,←,↓,↓"
-
-  },
-  {
-      levelID: 10,
-      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
-          0, 0, 1, 0, 0, 0, 0, 1, 1, 0,
-          0, 1, 1, 4, 1, 1, 2, 0, 1, 0,
-          0, 1, 0, 4, 4, 2, 0, 0, 1, 0,
-          0, 1, 0, 0, 1, 2, 0, 0, 1, 0,
-          0, 1, 0, 0, 3, 0, 1, 1, 1, 0,
-          0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "←,←,↑,↑,→,↑,↑,→,→,→,↓,↓,←,←,→,→,↑,↑,←,←,←,↓,↓,←,↓,↓,→,→,→,↑,↓,←,←,←,↑,↑,→,↑,↑,→,→,→,↓,↓,→,↓,←,↑,↑,↑,←,←,←,↓,↓,→,→,←,←,←,↓,↓,→,→,→,↑,→,↑,←,↓,↓,←,←,←,↑,↑,→,↑,↑,→,→,→,↓,→,↓,←,←,↓,←,←,↑,↑,↓,↓,→,→,↑,↑,←,→,↓,→,→,↑,←,←"
-  },
-];
-
 document.getElementById("recover").onclick = function() {
   this.style.visibility = "hidden";
   control.object.scale.z = 2;
@@ -154,9 +8,9 @@ function addKeyboardEvent() {
   document.onkeydown = function(event) {
     var choice = ghostdirection(event.key);
     if (choice == "↑" || choice == "↓" || choice == "←" || choice == "→") {
-      document.getElementById("answer1").style.visibility = "hidden";
-      document.getElementById("answer2").style.visibility = "hidden";
-      document.getElementById("answer3").style.visibility = "hidden";
+    //   document.getElementById("answer1").style.visibility = "hidden";
+    //   document.getElementById("answer2").style.visibility = "hidden";
+    //   document.getElementById("answer3").style.visibility = "hidden";
       ghostmove(choice);
       document.getElementById("num").innerHTML = step.length;
     }
@@ -213,6 +67,8 @@ function checkdesall() {
 }
 
 function ghostmove(choice) {
+  levelStart = false;
+  document.getElementById("answerdemo").style.visibility = "hidden";
   switch (choice) {
     case "↑":
       ghost.cube.rotation.y = Math.PI;
@@ -365,9 +221,9 @@ document.getElementById("map").onclick = function() {
 };
 document.getElementById("mapfile").onchange = function() {
   levelID=0;
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
+  // document.getElementById("answer1").style.visibility = "hidden";
+  // document.getElementById("answer2").style.visibility = "hidden";
+  // document.getElementById("answer3").style.visibility = "hidden";
   var file = this.files[0]; 
   var reader = new FileReader();
   reader.readAsText(file);
@@ -430,9 +286,9 @@ document.getElementById("answerfile").onchange = function() {
 document.getElementById("back").onclick = function() {
   addKeyboardEvent();
   clearInterval(draw);
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
+  // document.getElementById("answer1").style.visibility = "hidden";
+  // document.getElementById("answer2").style.visibility = "hidden";
+  // document.getElementById("answer3").style.visibility = "hidden";
   
   var laststep = step.pop();
   var lastflag = stepflag.pop();
@@ -521,16 +377,18 @@ document.getElementById("back").onclick = function() {
         break;
     }
   } else {
-    alert("This is the start of the level!");
+    levelStart = true
+    document.getElementById("answerdemo").style.visibility = "visible";
+    alert("This is the start!");
   }
 };
 
 document.getElementById("refresh").onclick = function() {
   clearInterval(draw); 
-  if (levelID) {
-    var answerstr = "answer" + levelID;
-    document.getElementById(answerstr).style.visibility = "visible";
-  }
+
+  levelStart = true;
+  document.getElementById("answerdemo").style.visibility = "visible";
+
   for (var i = 0; i < scene.children.length; i++) {
     if (scene.children[i] && scene.children[i].type == "Mesh") {
       scene.remove(scene.children[i]);
@@ -543,84 +401,141 @@ document.getElementById("refresh").onclick = function() {
   document.getElementById("num").innerHTML = step.length; 
 };
 
-document.getElementById("maid1").onclick = function() {
-  clearInterval(draw); 
-  levelID = 1;
-  document.getElementById("answer1").style.visibility = "visible";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
-  var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 
-    0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 
-    0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 
-    0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 
-    0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 
-    0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 
-    0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 
-    0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  initmap(arr);
-};
-document.getElementById("maid2").onclick = function() {
-  clearInterval(draw); 
-  levelID = 2;
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "visible";
-  document.getElementById("answer3").style.visibility = "hidden";
-  var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 
-    0, 1, 3, 0, 0, 1, 0, 0, 0, 0, 
-    0, 1, 0, 2, 2, 1, 0, 1, 1, 1, 
-    0, 1, 0, 2, 0, 1, 0, 1, 4, 1, 
-    0, 1, 1, 1, 0, 1, 1, 1, 4, 1, 
-    0, 0, 1, 1, 0, 0, 0, 0, 4, 1, 
-    0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 
-    0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 
-    0, 0, 1, 1, 1, 1, 1, 0, 0, 0];
-  initmap(arr);
-};
-document.getElementById("maid3").onclick = function() {
+// document.getElementById("maid1").onclick = function() {
+//   clearInterval(draw); 
+//   levelID = 1;
+//   document.getElementById("answer1").style.visibility = "visible";
+//   document.getElementById("answer2").style.visibility = "hidden";
+//   document.getElementById("answer3").style.visibility = "hidden";
+//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//     0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 
+//     0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 
+//     0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 
+//     0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 
+//     0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 
+//     0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 
+//     0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 
+//     0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 
+//     0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+//   initmap(arr);
+// };
+// document.getElementById("maid2").onclick = function() {
+//   clearInterval(draw); 
+//   levelID = 2;
+//   document.getElementById("answer1").style.visibility = "hidden";
+//   document.getElementById("answer2").style.visibility = "visible";
+//   document.getElementById("answer3").style.visibility = "hidden";
+//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//     0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 
+//     0, 1, 3, 0, 0, 1, 0, 0, 0, 0, 
+//     0, 1, 0, 2, 2, 1, 0, 1, 1, 1, 
+//     0, 1, 0, 2, 0, 1, 0, 1, 4, 1, 
+//     0, 1, 1, 1, 0, 1, 1, 1, 4, 1, 
+//     0, 0, 1, 1, 0, 0, 0, 0, 4, 1, 
+//     0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 
+//     0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 
+//     0, 0, 1, 1, 1, 1, 1, 0, 0, 0];
+//   initmap(arr);
+// };
+// document.getElementById("maid3").onclick = function() {
+//   clearInterval(draw);
+//   levelID = 3;
+//   document.getElementById("answer1").style.visibility = "hidden";
+//   document.getElementById("answer2").style.visibility = "hidden";
+//   document.getElementById("answer3").style.visibility = "visible";
+//   var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//             0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
+//             0, 0, 1, 4, 4, 1, 1, 1, 1, 0, 
+//             0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 
+//             0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 
+//             0, 1, 0, 2, 0, 0, 4, 1, 1, 0, 
+//             0, 1, 0, 0, 2, 2, 0, 0, 1, 0, 
+//             0, 1, 1, 0, 3, 0, 0, 1, 1, 0, 
+//             0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 
+//             0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+//   initmap(arr);
+// };
+
+
+function openLevel(level) {
+  console.log("openlevelentered");
   clearInterval(draw);
-  levelID = 3;
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "visible";
-  var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-            0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
-            0, 0, 1, 4, 4, 1, 1, 1, 1, 0, 
-            0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 
-            0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 
-            0, 1, 0, 2, 0, 0, 4, 1, 1, 0, 
-            0, 1, 0, 0, 2, 2, 0, 0, 1, 0, 
-            0, 1, 1, 0, 3, 0, 0, 1, 1, 0, 
-            0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  levelID = level;
+
+  levelStart = true;
+  document.getElementById("answerdemo").style.visibility = "visible";
+  // document.getElementById("answer1").style.visibility = "hidden";
+  // document.getElementById("answer2").style.visibility = "hidden";
+  // document.getElementById("answer3").style.visibility = "visible";
+
+  var arr = levels[level-1].map;
+  console.log(arr);
   initmap(arr);
-};
-document.getElementById("answer1").onclick = function() {
+}
+
+function playAnswer() {
+  console.log("oplayanswerentered");
   document.onkeydown = "";
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
-  var arrstr = "↓,↑,←,←,→,↑,↑,↓,→,→";
+
+  var arrstr = levels[levelID-1].answer;
   temparray = arrstr.split(",");
   initstep(temparray);
-};
-document.getElementById("answer2").onclick = function() {
-  document.onkeydown = "";
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
-  var arrstr = "→,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,↑,↓,←,←,←,←,↑,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,←,←,←,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→";
-  temparray = arrstr.split(",");
-  initstep(temparray);
-};
-document.getElementById("answer3").onclick = function() {
-  document.onkeydown = "";
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
-  var arrstr = "↑,↑,↓,↓,→,→,↑,←,↑,←,↑,↑,→,→,↓,↑,←,←,←,↓,←,↓,↓,→,↑,↑,↑,↓,↓,↓,↓,→,↑,↑,↑,←,↑,→";
-  temparray = arrstr.split(",");
-  initstep(temparray);
-};
+}
+
+document.getElementById("levelbtn1").onclick = function() {openLevel(1);};
+document.getElementById("levelbtn2").onclick = function() {openLevel(2);};
+document.getElementById("levelbtn3").onclick = function() {openLevel(3);};
+document.getElementById("levelbtn4").onclick = function() {openLevel(4);};
+document.getElementById("levelbtn5").onclick = function() {openLevel(5);};
+document.getElementById("levelbtn6").onclick = function() {openLevel(6);};
+document.getElementById("levelbtn7").onclick = function() {openLevel(7);};
+document.getElementById("levelbtn8").onclick = function() {openLevel(8);};
+document.getElementById("levelbtn9").onclick = function() {openLevel(9);};
+document.getElementById("levelbtn10").onclick = function() {openLevel(10);};
+
+document.getElementById("answerdemo").onclick = function() {playAnswer();};
+
+const levels = [
+  {
+      levelID: 1,
+      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 
+        0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 
+        0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 
+        0, 1, 1, 1, 2, 0, 2, 4, 1, 0, 
+        0, 1, 4, 0, 2, 3, 1, 1, 1, 0, 
+        0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 
+        0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 
+        0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      answer: "↓,↑,←,←,→,↑,↑,↓,→,→",
+  },
+  {
+      levelID: 2,
+      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 
+          0, 1, 3, 0, 0, 1, 0, 0, 0, 0, 
+          0, 1, 0, 2, 2, 1, 0, 1, 1, 1, 
+          0, 1, 0, 2, 0, 1, 0, 1, 4, 1, 
+          0, 1, 1, 1, 0, 1, 1, 1, 4, 1, 
+          0, 0, 1, 1, 0, 0, 0, 0, 4, 1, 
+          0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 
+          0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 
+          0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+      answer: "→,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,↑,↓,←,←,←,←,↑,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→,↓,→,↑,←,←,←,←,↑,↑,↑,←,←,↓,→,↑,→,↓,↓,↓,→,↓,↓,←,←,↑,→,↓,→,↑,←,↑,→,→,→",
+  },
+  {
+      levelID: 3,
+      map: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
+          0, 0, 1, 4, 4, 1, 1, 1, 1, 0, 
+          0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 
+          0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 
+          0, 1, 0, 2, 0, 0, 4, 1, 1, 0, 
+          0, 1, 0, 0, 2, 2, 0, 0, 1, 0, 
+          0, 1, 1, 0, 3, 0, 0, 1, 1, 0, 
+          0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      answer: "↑,↑,↓,↓,→,→,↑,←,↑,←,↑,↑,→,→,↓,↑,←,←,←,↓,←,↓,↓,→,↑,↑,↑,↓,↓,↓,↓,→,↑,↑,↑,←,↑,→"
+  },
+];

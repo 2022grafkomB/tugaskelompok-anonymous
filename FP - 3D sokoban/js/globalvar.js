@@ -22,6 +22,7 @@ var control;
 var eventID;
 var levelID=1;
 var draw;
+var levelStart=true;
 
 
 if (!Array.prototype.includes) {

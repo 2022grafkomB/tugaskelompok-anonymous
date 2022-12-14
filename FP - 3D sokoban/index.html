@@ -52,7 +52,18 @@
     <canvas height="100%" width="100%" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 1;"  id="canvas">
     </canvas>
     <!-- <img id="wasd" src="img/wasd.png" title="wasd"/> -->
-    <button id="maid1" class="btn button button-large button-plain button-border button-box" >
+
+    <div id="levels" class="levels container">
+      <button id="levelbtn1" class="level btn button button-large button-plain button-border button-box">1</button> 
+      <button id="levelbtn2" class="level btn button button-large button-plain button-border button-box">2</button> 
+      <button id="levelbtn3" class="level btn button button-large button-plain button-border button-box">3</button> 
+    </div>
+
+    <button id="answerdemo" class="btn button button-large button-plain button-border button-box" >
+      show answer
+    </button>
+
+    <!-- <button id="maid1" class="btn button button-large button-plain button-border button-box" >
       peta 1
     </button>
     <button id="answer1" class="btn button button-large button-plain button-border button-box">
@@ -69,7 +80,7 @@
     </button>
     <button id="answer3" class="btn button button-large button-plain button-border button-box">
       jawaban 3
-    </button>
+    </button> -->
     <button id="stepnum" class="button button-glow button-border button-rounded button-primary">
       step：
       <span id="num">
@@ -111,6 +122,8 @@
     <script src="js/globalvar.js"></script>
     
     <script src="js/Cube.js"></script>
+
+    <script type="" src="js/Levels.js"></script>
     
     <script src="js/TRender.js"></script>
     
