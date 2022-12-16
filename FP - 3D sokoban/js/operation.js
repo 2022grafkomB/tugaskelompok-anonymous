@@ -393,12 +393,13 @@ document.getElementById("refresh").onclick = function() {
 };
 
 function openLevel(level) {
-  console.log("openlevelentered");
   clearInterval(draw);
   levelID = level;
 
   levelStart = true;
   document.getElementById("answerdemo").style.visibility = "visible";
+  document.getElementById("level-title").innerHTML = "Level " + levelID;
+  document.getElementById("level-title").style.visibility = "visible";
 
   var arr = levels[level-1].map;
   console.log(arr);
@@ -406,7 +407,6 @@ function openLevel(level) {
 }
 
 function playAnswer() {
-  console.log("oplayanswerentered");
   document.onkeydown = "";
 
   var arrstr = levels[levelID-1].answer;
@@ -496,7 +496,7 @@ const levels = [
           0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-      answer: "↓,↑,↓,→,→,→,↑,→,→,↑,↑,←,←,↓,↓,←,↓,←,←,↑,→,→,→,↑,↑,←,↓,↓,↑,↑,→,→,→,↓,←,↑,←,↓"
+      answer: "↓,→,→,→,↑,→,→,↑,↑,←,←,↓,↓,←,↓,←,←,↑,→,→,→,↑,↑,←,↓,↓,↑,↑,→,→,→,↓,←,↑,←,↓"
   },
   {
       levelID: 6,
@@ -509,8 +509,7 @@ const levels = [
           0, 1, 0, 0, 1, 2, 2, 0, 1, 0,
           0, 1, 0, 0, 3, 0, 0, 0, 1, 0,
           0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
       answer: "←,↑,↑,→,→,↑,↑,↓,←,←,↓,↓,↓,→,→,↑,↓,→,→,↑,←,↓,←,←,←,↑,↑,↑,→,→,→,↓,←,↑,←,←,↓,↓,↓,→,→,↑,↑,→,↑,←,↓,↓,↓,←,←,↑,↑,→,↑,↑,↓,↓,←,↓,↓,→,→,↑,↑,↑,↓,↓,↓,→,↑,↑",
   },
   {

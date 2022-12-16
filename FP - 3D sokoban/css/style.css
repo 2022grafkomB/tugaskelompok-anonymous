@@ -10,6 +10,7 @@ html, body {
 body {
   background-image: url("../img/hacker.jpg");
   background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #white {
@@ -300,3 +301,21 @@ body {
   top: 70%;
   width: 205px;
 }
+
+#level-title {
+  visibility: visible;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  border-width: 2px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 15px;
+  width: 200px;
+} 
