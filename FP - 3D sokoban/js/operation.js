@@ -67,11 +67,11 @@ function playAudio(state) {
 
   let volume = {
     success : 0.5,
-    push: 1,
+    push: 0.4,
     hitwall: 0.05,
     insert: 1,
-    move: 1,
-    bgm: 0.1,
+    move: 0.6,
+    bgm: 0.15,
     select: 1,
   }
   
@@ -81,13 +81,16 @@ function playAudio(state) {
     moveflag == !moveflag;
   }
 
-
   let music = new Audio(track);
   music.currentTime = 0;
   music.volume = volume[state];
+  if (state == "bgm") {
+    music.loop = true;
+    console.log(music)
+  }
 
   music.play();
-  // setTimeout(() => music.pause(), 1000 * 12);
+
 
 }
 
@@ -98,8 +101,7 @@ function checkdesall() {
     document.getElementById("recover").style.visibility = "hidden";
     ghost = null;
     
-    // playAudio("success");
-    // console.log("SUCCESS!!!!")
+
     setTimeout(function() {
 
       playAudio("success");
