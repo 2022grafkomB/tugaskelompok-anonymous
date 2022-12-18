@@ -71,7 +71,7 @@ function playAudio(state) {
     hitwall: 0.05,
     insert: 1,
     move: 0.6,
-    bgm: 0.15,
+    bgm: 0.12,
     select: 1,
   }
   
