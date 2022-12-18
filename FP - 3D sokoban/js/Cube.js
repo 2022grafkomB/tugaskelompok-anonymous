@@ -2,19 +2,16 @@
 // import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
 function Cube(state, row, column, materialurl, x, y, z) {
+  // console.log("x = ", x, y, "      Z = ", z)
   this.state = state; 
   this.row = row; 
   this.column = column; 
   if (state == 1 || state == 2) {
     var cubegeometry = new THREE.BoxGeometry(10, 10, 10); 
     if (materialurl == "crate") {
-      // var cubematerial = new THREE.MeshBasicMaterial({
-      //   map: textureloader.loadTexture('img/crate.jpg')
-      // });
-        //Teksture //Sci_Fi_Floor_Tile_ambientocclusion
-        const fbxModelpath = './Crate/';
+        const Modelpath = './Crate/';
         const texture = new THREE.TextureLoader();
-        texture.setPath(fbxModelpath);
+        texture.setPath(Modelpath);
         const aoMapp = texture.load("Sci_Fi_Floor_Tile_ambientocclusion.png");
         const baseColorMap =  texture.load("Sci_Fi_Floor_Tile_basecolor.png");
         const emissiveMapp = texture.load("Sci_Fi_Floor_Tile_Emissive.png");
@@ -39,80 +36,39 @@ function Cube(state, row, column, materialurl, x, y, z) {
     cube.position.set(x, y, z);
     this.cube = cube; 
     scene.add(cube);
-  }
+  } 
 }
 
-function Crate(state, row, column, x, y, z){
-  this.state = state; 
-  this.row = row; 
-  this.column = column; 
-
-  var loader = new THREE.STLLoader();
-
-  // const fbxModelpath = './Crate/';
-  //       const texture = new THREE.TextureLoader();
-  //       texture.setPath(fbxModelpath);
-  //       const aoMapp = texture.load("Sci_Fi_Floor_Tile_ambientocclusion.png");
-  //       const baseColorMap =  texture.load("Sci_Fi_Floor_Tile_basecolor.png");
-  //       const emissiveMapp = texture.load("Sci_Fi_Floor_Tile_Emissive.png");
-  //       const metallicMap =  texture.load("Sci_Fi_Floor_Tile_metallic.png");
-  //       const normalMap =  texture.load("Sci_Fi_Floor_Tile_normal.png");
-  //       const roughnessMap =  texture.load("Sci_Fi_Floor_Tile_roughness.png");
-  //       var cubematerial = new THREE.MeshStandardMaterial({
-  //         map: baseColorMap, 
-  //         aoMap: aoMapp,
-  //         emissive: 0xffffff,
-  //         emissiveMap: emissiveMapp,
-  //         metalnessMap: metallicMap,
-  //         normalMap: normalMap,
-  //         roughnessMap: roughnessMap
-  //       });
-  loader.load("Crate/TestCube.stl", function(obj) {
-    var cube = new THREE.Mesh(obj, crateMaterial);
-    // cube.rotateX();
-    cube.position.set((column - 1) * 10 + 5, 0, (row - 1) * 10 + 5);
-    cube.scale.set(0.7, 0.7, 0.7);
-    scene.add(cube);
-    ghost.cube = cube;
-    document.getElementById("white").style.display="none";
-  })
-
-  //box
-  const fbxModelpath = './Crate/';
-  const fbxName = 'TestCube.fbx';
-
-  //Teksture //Sci_Fi_Floor_Tile_ambientocclusion
+function floorCube(x, z){
+  // Geometry
+  var floorgeometry = new THREE.BoxGeometry(10, 1, 10);
+    
+  // Texture
+  const Modelpath = './floor/type1/textures/';
   const texture = new THREE.TextureLoader();
-  texture.setPath(fbxModelpath);
-  const aoMapp = texture.load("Sci_Fi_Floor_Tile_ambientocclusion.png");
-  const baseColorMap =  texture.load("Sci_Fi_Floor_Tile_basecolor.png");
-  const emissiveMapp = texture.load("Sci_Fi_Floor_Tile_Emissive.png");
-  const metallicMap =  texture.load("Sci_Fi_Floor_Tile_metallic.png");
-  const normalMap =  texture.load("Sci_Fi_Floor_Tile_normal.png");
-  const roughnessMap =  texture.load("Sci_Fi_Floor_Tile_roughness.png");
-  const crateMaterial = new THREE.MeshStandardMaterial({
+  texture.setPath(Modelpath); 
+  
+  const baseColorMap =  texture.load("Albedo.png");
+  const aoMapp = texture.load("AO.png");
+  const emissiveMapp = texture.load("Emission.png");
+  const normalMap =  texture.load("Normal.png");
+  const specularMapp = texture.load("Specular.png");
+
+
+  // Material
+  var floormaterial = new THREE.MeshPhongMaterial({
     map: baseColorMap, 
     aoMap: aoMapp,
     emissive: 0xffffff,
     emissiveMap: emissiveMapp,
-    metalnessMap: metallicMap,
+    specularMap: specularMapp,
     normalMap: normalMap,
-    roughnessMap: roughnessMap
   });
 
-  loader.setPath(fbxModelpath);
-  loader.load(fbxName, (fbx) => {
-    for (let child of fbx.children) {
-      child.material = crateMaterial;
-    };
-
-    fbx.scale.setScalar(0.08);
-    fbx.traverse(c => {
-      c.castShadow = true;
-    });
-
-    fbx.position.set(x, y, z);
-  });
+  // Mesh
+  var floor = new THREE.Mesh(floorgeometry, floormaterial);
+  floor.position.set(x, -0.5, z);
+  scene.add(floor);
 }
 
 function PersonCube(row, column) {

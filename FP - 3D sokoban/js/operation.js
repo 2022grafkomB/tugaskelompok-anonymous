@@ -277,6 +277,7 @@ function initmap(arr) {
     stepflag = []; 
     temparray = arr; 
     initcube(temparray); 
+    initFloor();
     document.getElementById("num").innerHTML = step.length;
   } else {
     swal('Map file format error', 'Please read in the correct map file', 'error');
