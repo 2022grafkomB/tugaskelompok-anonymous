@@ -1,4 +1,7 @@
 document.getElementById("cover").onmousedown = function() {
+  playAudio("select");
+  playAudio("bgm");
+
   this.style.display = "none";
   control.autoRotate = false;
   // document.getElementById("cover2").style.display = "block";

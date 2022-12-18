@@ -6,6 +6,7 @@ var descube;
 var step = []; 
 var stepflag = [];
 var temparray;
+var moveflag = true;
 
 
 var textureloader = THREE.ImageUtils;

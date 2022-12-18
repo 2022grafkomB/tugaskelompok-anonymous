@@ -1,4 +1,5 @@
 document.getElementById("recover").onclick = function() {
+  playAudio("select");
   this.style.visibility = "hidden";
   control.object.scale.z = 2;
   camera.position.set(50.06421484100598, 219.95842897735875, -33.78512665221608);
@@ -49,11 +50,60 @@ function ghostdirection(eventkey) {
   return choice;
 }
 
+function playAudio(state) {
+  let playlist = {
+    success : "./audio/success.mp3",
+  }
+  
+  let tracks = {
+    success : "./audio/success.mp3",
+    push: "./audio/push.mp3",
+    hitwall: "./audio/hitwall.wav",
+    insert: "./audio/insert.wav",
+    move: moveflag? "./audio/move1.mp3" : "./audio/move2.mp3",//
+    bgm: "./audio/bgm.mp3",
+    select: "./audio/select.wav"
+  }
+
+  let volume = {
+    success : 0.5,
+    push: 1,
+    hitwall: 0.05,
+    insert: 1,
+    move: 1,
+    bgm: 0.1,
+    select: 1,
+  }
+  
+  let track = tracks[state];
+
+  if (track == "move") {
+    moveflag == !moveflag;
+  }
+
+
+  let music = new Audio(track);
+  music.currentTime = 0;
+  music.volume = volume[state];
+
+  music.play();
+  // setTimeout(() => music.pause(), 1000 * 12);
+
+}
+
+
+
 function checkdesall() {
   if (descube.checkdes()) {
     document.getElementById("recover").style.visibility = "hidden";
     ghost = null;
+    
+    // playAudio("success");
+    // console.log("SUCCESS!!!!")
     setTimeout(function() {
+
+      playAudio("success");
+
       swal('Congratulations!', 'The final steps are ' + step.length + " step", 'success');
       
       scene.visible = false;
@@ -70,11 +120,13 @@ function ghostmove(choice) {
     case "↑":
       ghost.cube.rotation.y = Math.PI;
       if (ghost.isavailable("w")) {
+        playAudio("move");
         step.push(choice); 
         move(ghost.cube, "↑"); //Gerakan karakter
         cubes[ghost.row][ghost.column].state = 0;
         var state = cubes[ghost.row - 1][ghost.column].state;
         if (state == 2) {
+          playAudio("push");
           stepflag.push(true);
           var box = cubes[ghost.row - 1][ghost.column].cube;
           move(box, "↑"); 
@@ -82,6 +134,7 @@ function ghostmove(choice) {
           cubes[ghost.row - 2][ghost.column].cube = box;
           if (descube.checkcube(ghost.row - 2, ghost.column)) {
             setTimeout(function() {
+              playAudio("insert");
               box.scale.set(0.5, 0.5, 0.5);
             }, 500);
           } else {
@@ -95,16 +148,20 @@ function ghostmove(choice) {
         cubes[ghost.row - 1][ghost.column].state = 3; 
         ghost.row -= 1;
         checkdesall();
+      } else {
+        playAudio("hitwall");
       }
       break;
     case "↓":
       ghost.cube.rotation.y = 0;
       if (ghost.isavailable("s")) {
+        playAudio("move");
         step.push(choice); 
         move(ghost.cube, "↓"); 
         cubes[ghost.row][ghost.column].state = 0;     
         var state = cubes[ghost.row + 1][ghost.column].state;
         if (state == 2) {
+          playAudio("push");
           stepflag.push(true);
           var box = cubes[ghost.row + 1][ghost.column].cube;
           move(box, "↓"); 
@@ -112,6 +169,7 @@ function ghostmove(choice) {
           cubes[ghost.row + 2][ghost.column].cube = box;
           if (descube.checkcube(ghost.row + 2, ghost.column)) {
             setTimeout(function() {
+              playAudio("insert");
               box.scale.set(0.5, 0.5, 0.5);
             }, 500);
           } else {
@@ -125,16 +183,20 @@ function ghostmove(choice) {
         cubes[ghost.row + 1][ghost.column].state = 3; 
         ghost.row += 1;
         checkdesall();
+      } else {
+        playAudio("hitwall");
       }
       break;
     case "←":
       ghost.cube.rotation.y = -Math.PI / 2;
       if (ghost.isavailable("a")) {
+        playAudio("move");
         step.push(choice);
         move(ghost.cube, "←");
         cubes[ghost.row][ghost.column].state = 0; 
         var state = cubes[ghost.row][ghost.column - 1].state;
         if (state == 2) {
+          playAudio("push");
           stepflag.push(true);
           var box = cubes[ghost.row][ghost.column - 1].cube;
           move(box, "←");
@@ -142,6 +204,7 @@ function ghostmove(choice) {
           cubes[ghost.row][ghost.column - 2].cube = box;
           if (descube.checkcube(ghost.row, ghost.column - 2)) {
             setTimeout(function() {
+              playAudio("insert");
               box.scale.set(0.5, 0.5, 0.5);
             }, 500);
           } else {
@@ -155,16 +218,20 @@ function ghostmove(choice) {
         cubes[ghost.row][ghost.column - 1].state = 3;
         ghost.column -= 1; 
         checkdesall();
+      } else {
+        playAudio("hitwall");
       }
       break;
     case "→":
       ghost.cube.rotation.y = Math.PI / 2;
       if (ghost.isavailable("d")) {
+        playAudio("move");
         step.push(choice); 
         move(ghost.cube, "→"); 
         cubes[ghost.row][ghost.column].state = 0; 
         var state = cubes[ghost.row][ghost.column + 1].state;
         if (state == 2) {
+          playAudio("push");
           stepflag.push(true);
           var box = cubes[ghost.row][ghost.column + 1].cube;
           move(box, "→"); 
@@ -172,6 +239,7 @@ function ghostmove(choice) {
           cubes[ghost.row][ghost.column + 2].cube = box;
           if (descube.checkcube(ghost.row, ghost.column + 2)) {
             setTimeout(function() {
+              playAudio("insert");
               box.scale.set(0.5, 0.5, 0.5);
             }, 500);
           } else {
@@ -185,6 +253,8 @@ function ghostmove(choice) {
         cubes[ghost.row][ghost.column + 1].state = 3; 
         ghost.column += 1;
         checkdesall();
+      } else {
+        playAudio("hitwall");
       }
       break;
     default:
@@ -214,6 +284,7 @@ function initmap(arr) {
 }
 
 document.getElementById("map").onclick = function() {
+  playAudio("select");
   document.getElementById("mapfile").click();
 };
 document.getElementById("mapfile").onchange = function() {
@@ -259,6 +330,7 @@ function initstep(arr) {
 }
 
 document.getElementById("answer").onclick = function() {
+  playAudio("select");
   document.getElementById("answerfile").click();
 };
 document.getElementById("answerfile").onchange = function() {
@@ -278,6 +350,7 @@ document.getElementById("answerfile").onchange = function() {
 };
 
 document.getElementById("back").onclick = function() {
+  playAudio("select");
   addKeyboardEvent();
   clearInterval(draw);
   
@@ -375,6 +448,7 @@ document.getElementById("back").onclick = function() {
 };
 
 document.getElementById("refresh").onclick = function() {
+  playAudio("select");
   clearInterval(draw); 
 
   levelStart = true;
@@ -393,6 +467,7 @@ document.getElementById("refresh").onclick = function() {
 };
 
 function openLevel(level) {
+  playAudio("select");
   clearInterval(draw);
   levelID = level;
 
