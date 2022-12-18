@@ -26,8 +26,21 @@ function initthreejs() {
   control.autoRotateSpeed = 7;
   control.update();
 
+  // lighting
   light = new THREE.AmbientLight(0xffffff);
   scene.add(light);
+
+  // skybox
+  var skybox = new THREE.CubeTextureLoader().load([
+    './skybox/right.png',
+    './skybox/left.png',
+    './skybox/top.png',
+    './skybox/bottom.png',
+    './skybox/front.png',
+    './skybox/back.png'
+  ]);
+  console.log(skybox)
+  scene.background = skybox;
 }
 
 function initmeshline() {
@@ -113,7 +126,6 @@ temparray = [0, 0,
 
 function initcube(a) {
   scene.visible = true;
-  document.body.style.backgroundColor = "url(img/hacker.jpg)"; 
   cubes = new Array(); 
   var tempindex = 0;
   for (var i = 1; i <= 10; i++) {
