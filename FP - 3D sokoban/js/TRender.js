@@ -31,6 +31,7 @@ function initthreejs() {
 }
 
 function initmeshline() {
+  console.log("Initmeshline")
   for (var i = 0; i <= 100; i += 10) {
 
     var lineContainer = new THREE.Geometry();
@@ -46,6 +47,16 @@ function initmeshline() {
     scene.add(rotateline);
   }
 }
+
+function initFloor(){
+  console.log("initFloor")
+  for (var z = 5; z < 100; z+=10){
+    for (var x = 5; x < 100; x+=10){
+      floorCube(z, x);
+    }
+  }
+}
+
 temparray = [0, 0, 
              0, 0, 
              0, 0,
@@ -179,5 +190,6 @@ function gameloop() {
 initthreejs();
 statsmonitor();
 initmeshline();
+initFloor();
 initcube(temparray);
 gameloop();
